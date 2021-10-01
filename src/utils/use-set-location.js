@@ -1,7 +1,9 @@
-let pushState = null;
+import { createContext, useContext } from 'react';
 
-export const setPushState = (func) => {
-  pushState = func;
+export const SetLocationContext = createContext(null);
+
+const useSetLocation = () => {
+  return useContext(SetLocationContext);
 };
 
-export default pushState;
+export default useSetLocation;

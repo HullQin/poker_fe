@@ -1,0 +1,28 @@
+#message {
+  color: rgba(0, 0, 0, .85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  position: fixed;
+  top: 8px;
+  left: 0;
+  z-index: 1010;
+  width: 100%;
+  pointer-events: none;
+  text-align: center;
+}
+#message > div {
+  padding: 6px;
+  transition: margin-top .25s linear;
+}
+#message > div > div {
+  display: inline-block;
+  padding: 12px 18px;
+  background: #fff;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 3px 6px -4px rgba(0, 0, 0, .12), 0 6px 16px 0 rgba(0, 0, 0, .08), 0 9px 28px 8px rgba(0, 0, 0, .05);
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, .12), 0 6px 16px 0 rgba(0, 0, 0, .08), 0 9px 28px 8px rgba(0, 0, 0, .05);
+  pointer-events: all;
+}

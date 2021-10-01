@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useEffect, useState } from 'react';
+import Poker from './components/Poker';
+import PokerList from './components/PokerList';
+import Seat from './components/Seat';
+import SeatList from './components/SeatList';
+import Room from './pages/Room';
+import Home from './pages/Home';
+import { SetLocationContext } from './utils/use-set-location';
 
-function App() {
+// const players = [
+//   {
+//     seat: 1,
+//     name: '1',
+//     online: true,
+//     is_creator: true,
+//   },
+//   {
+//     seat: 2,
+//     name: '2',
+//     online: true,
+//     is_creator: false,
+//   },
+//   {
+//     seat: 3,
+//     name: '3',
+//     online: true,
+//     is_creator: false,
+//   },
+//   null,
+// ];
+
+const App = () => {
+  const [location, setLocation] = useState(document.location.pathname);
+  //   (_, location) => {
+  //   window.history.pushState(null, null, location);
+  //   return document.location.pathname;
+  // }, document.location.pathname);
+
+  const pushHistory = useCallback((location) => {
+    window.history.pushState(null, null, location);
+    setLocation(document.location.pathname);
+  }, []);
+
+  useEffect(() => {
+    window.onpopstate = (event) => {
+      setLocation(event.target.location.pathname);
+    };
+    return () => {
+      window.onpopstate = null;
+    };
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SetLocationContext.Provider value={pushHistory}>
+      {location === '/' ? <Home/> : <Room/>}
+    </SetLocationContext.Provider>
   );
-}
+
+  // return (
+  //   <div>
+  //     {/*<SeatList players={players} />*/}
+  //     {/*<Seat seat={2} online onClick={() => console.log(12)}/>*/}
+  //     {/*<Seat seat={1} name={'玩家1'} online={false} style={{ margin: 20 }} isCreator  onClick={() => console.log(122)}/>*/}
+  //     {/*<Seat seat={3}  online style={{ margin: 20 }} onClick={() => console.log(123)}/>*/}
+  //     {/*<PokerList ids={Array(54).fill(0).map((_, i) => 1 + i)} />*/}
+  //   </div>
+  // );
+};
 
 export default App;

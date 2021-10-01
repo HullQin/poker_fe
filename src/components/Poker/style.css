@@ -1,0 +1,173 @@
+.poker {
+  background-image: url('./card.png');
+  background-clip: content-box;
+  background-repeat: no-repeat;
+  width: 116px;
+  height: 159px;
+  transition: padding-bottom .2s ease-out;
+}
+.poker-1 {
+   background-position: -238px -646px;
+ }
+.poker-10 {
+    background-position: -120px -646px;
+  }
+.poker-11 {
+    background-position: -2px -646px;
+  }
+.poker-12 {
+    background-position: -1418px -485px;
+  }
+.poker-13 {
+    background-position: -1300px -485px;
+  }
+.poker-14 {
+    background-position: -1182px -485px;
+  }
+.poker-15 {
+    background-position: -1064px -485px;
+  }
+.poker-16 {
+    background-position: -946px -485px;
+  }
+.poker-17 {
+    background-position: -828px -485px;
+  }
+.poker-18 {
+    background-position: -710px -485px;
+  }
+.poker-19 {
+    background-position: -592px -485px;
+  }
+.poker-2 {
+   background-position: -474px -485px;
+ }
+.poker-20 {
+    background-position: -356px -485px;
+  }
+.poker-21 {
+    background-position: -238px -485px;
+  }
+.poker-22 {
+    background-position: -120px -485px;
+  }
+.poker-23 {
+    background-position: -2px -485px;
+  }
+.poker-24 {
+    background-position: -1418px -324px;
+  }
+.poker-25 {
+    background-position: -1300px -324px;
+  }
+.poker-26 {
+    background-position: -1182px -324px;
+  }
+.poker-27 {
+    background-position: -1064px -324px;
+  }
+.poker-28 {
+    background-position: -946px -324px;
+  }
+.poker-29 {
+    background-position: -828px -324px;
+  }
+.poker-3 {
+   background-position: -710px -324px;
+ }
+.poker-30 {
+    background-position: -592px -324px;
+  }
+.poker-31 {
+    background-position: -474px -324px;
+  }
+.poker-32 {
+    background-position: -356px -324px;
+  }
+.poker-33 {
+    background-position: -238px -324px;
+  }
+.poker-34 {
+    background-position: -120px -324px;
+  }
+.poker-35 {
+    background-position: -2px -324px;
+  }
+.poker-36 {
+    background-position: -1418px -163px;
+  }
+.poker-37 {
+    background-position: -1300px -163px;
+  }
+.poker-38 {
+    background-position: -1182px -163px;
+  }
+.poker-39 {
+    background-position: -1064px -163px;
+  }
+.poker-4 {
+   background-position: -946px -163px;
+ }
+.poker-40 {
+    background-position: -828px -163px;
+  }
+.poker-41 {
+    background-position: -710px -163px;
+  }
+.poker-42 {
+    background-position: -592px -163px;
+  }
+.poker-43 {
+    background-position: -474px -163px;
+  }
+.poker-44 {
+    background-position: -356px -163px;
+  }
+.poker-45 {
+    background-position: -238px -163px;
+  }
+.poker-46 {
+    background-position: -120px -163px;
+  }
+.poker-47 {
+    background-position: -2px -163px;
+  }
+.poker-48 {
+    background-position: -1418px -2px;
+  }
+.poker-49 {
+    background-position: -1300px -2px;
+  }
+.poker-5 {
+   background-position: -1182px -2px;
+ }
+.poker-50 {
+    background-position: -1064px -2px;
+  }
+.poker-51 {
+    background-position: -946px -2px;
+  }
+.poker-52 {
+    background-position: -828px -2px;
+  }
+.poker-53 {
+    background-position: -710px -2px;
+  }
+.poker-54 {
+    background-position: -592px -2px;
+  }
+.poker-0 {
+   background-position: -474px -2px;
+ }
+.poker-6 {
+   background-position: -356px -2px;
+ }
+.poker-7 {
+   background-position: -238px -2px;
+ }
+.poker-8 {
+   background-position: -120px -2px;
+ }
+.poker-9 {
+   background-position: -2px -2px;
+ }

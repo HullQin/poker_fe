@@ -44,4 +44,6 @@ const getUserId = () => {
   }
 };
 
-export default getUserId();
+const userId = getUserId();
+
+export default userId;

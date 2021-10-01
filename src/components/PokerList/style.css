@@ -1,0 +1,8 @@
+.poker-list {
+  overflow-x: auto;
+  position: relative;
+  height: 200px;
+}
+.poker-list::-webkit-scrollbar {
+  display: none;
+}
