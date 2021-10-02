@@ -17,22 +17,16 @@ const WaitingRoom = (props) => {
       />
       {room.players[seat]?.is_creator && (
         <div style={{ marginTop: 21, textAlign: 'center' }}>
-          {/*<button*/}
-          {/*  disabled={room.players[4] !== null || disabled}*/}
-          {/*  onClick={() => {*/}
-          {/*    setDisabled(true);*/}
-          {/*    addHandler({*/}
-          {/*      'user.change.mode.fail': (data) => {*/}
-          {/*        removeHandler(['user.change.mode.fail']);*/}
-          {/*      },*/}
-          {/*    });*/}
-          {/*    sendData('user.change.mode')*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  调整模式*/}
-          {/*</button>*/}
-          {/*<br/>*/}
-          {/*<br/>*/}
+          <button
+            disabled={!!room.players[4]}
+            onClick={() => {
+              sendData('user.change.mode');
+            }}
+          >
+            调整模式
+          </button>
+          <br/>
+          <br/>
           <button
             disabled={room.players.includes(null, 1) || disabled}
             onClick={() => {

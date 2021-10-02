@@ -51,6 +51,8 @@ const connect = (roomId) => {
     if (event.code !== 1000) {
       if (event.code === 3200) {
         alert('您已在新的浏览器窗口中进入该房间，本页面连接中断！');
+      } else if(event.code === 3001) {
+        alert('您被踢出房间，请刷新页面重新进入！');
       } else {
         alert('网络问题，连接已断开！请刷新页面！');
       }

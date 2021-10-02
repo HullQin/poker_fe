@@ -18,9 +18,11 @@ const Room = () => {
     state: -1,
     held: [0, 0, 0, 0],
     used: [],
+    last: [],
     my: [],
     revealed: [],
     total: 0,
+    landlord: null,
   }));
 
   console.log(room);
@@ -34,6 +36,7 @@ const Room = () => {
   const setRoomCreator = (seat) => {
     setRoom((room) => {
       room.creator = seat;
+      if (seat === null) return;
       room.players[seat].is_creator = true;
     });
   };
@@ -54,10 +57,18 @@ const Room = () => {
     addHandler({
       'room.init': (data) => {
         Message(`欢迎来到房间${data.room.id}`);
-        setSeat(data.seat);
+        if (data.seat) setSeat(data.seat);
         setRoom(data.room);
+        if (data.game) setGame(data.game);
       },
       'room.user.seat': (data) => {
+        if (!data.old_seat) {
+          Message(`你成功加入，作为玩家${data.user.seat}`);
+          setSeat(data.user.seat);
+          setRoomPlayer(data.user.seat, data.user);
+          if (data.user.is_creator) setRoomCreator(data.user.seat);
+          return;
+        }
         Message(`玩家${data.old_seat}换到了位置${data.user.seat}`);
         if (data.is_me) setSeat(data.user.seat);
         setRoomPlayer(data.old_seat, null);
@@ -96,9 +107,25 @@ const Room = () => {
         setPlayerOnline(data.seat, true);
       },
       'room.state.start': (data) => {
-        Message('游戏开始');
+        Message('游戏开始，已发牌，请决定是否叫地主');
         setGame(data.game);
         setRoomState(1);
+      },
+      'game.reset': (data) => {
+        Message('房主重新发牌了，请决定是否叫地主');
+        setGame(data.game);
+      },
+      'game.landlord': (data) => {
+        Message(`玩家${data.seat}抢到了地主`);
+        setGame(data.game);
+      },
+      'game.drop.card': (data) => {
+        Message(`玩家${data.seat}出牌了`);
+        setGame(data.game);
+      },
+      'game.withdraw.card': (data) => {
+        Message(`玩家${data.seat}收回了刚出的牌`);
+        setGame(data.game);
       },
       'room.state.end': (data) => {
         Message('游戏结束');
@@ -115,10 +142,10 @@ const Room = () => {
     return <WaitingRoom room={room} seat={seat} />;
   }
   if (room.state === 1) {
-    return <GamingRoom room={room} game={game} seat={seat} />
+    return <GamingRoom room={room} game={game} seat={seat} />;
   }
   if (room.state === 999) {
-
+    return '游戏结束，李晓馨输了';
   }
   return null;
 };

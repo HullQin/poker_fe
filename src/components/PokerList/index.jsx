@@ -5,13 +5,13 @@ import './style.css';
 const PokerList = (props) => {
   const { ids, style } = props;
   const sortedIds = [...ids];
-  sortedIds.sort((a, b) => pokerMap[b] - pokerMap[a]);
+  sortedIds.sort((a, b) => pokerMap[b === 0 ? 0 : b % 54 === 0 ? 54 : b % 54] - pokerMap[a === 0 ? 0 : a % 54 === 0 ? 54 : a % 54]);
   const [selectedIds, setSelectedIds] = useState(Array(sortedIds.length).fill(false));
   useEffect(() => {
     setSelectedIds(Array(sortedIds.length).fill(false));
   }, [sortedIds.length]);
   return (
-    <div className="poker-list" style={{ ...style }}>
+    <div className='poker-list' style={{ ...style }}>
       {sortedIds.map((id, index) => (
         <Poker
           key={index}

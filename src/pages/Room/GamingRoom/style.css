@@ -1,0 +1,18 @@
+.room-private-poker {
+  height: 200px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: burlywood;
+}
+.room-seat-info {
+  margin-top: -7px;
+  text-align: center;
+}
+.room-seat-role {
+  font-size: 20px;
+}
+.room-seat-rest {
+  font-weight: 900;
+  font-size: 20px;
+}
