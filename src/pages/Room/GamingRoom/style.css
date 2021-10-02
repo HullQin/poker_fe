@@ -1,9 +1,8 @@
 .room-private-poker {
-  height: 200px;
+  height: 250px;
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: burlywood;
 }
 .room-seat-info {
   margin-top: -7px;

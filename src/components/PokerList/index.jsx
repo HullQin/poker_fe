@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useImmer } from 'use-immer';
 import Poker from '../Poker';
 import './style.css';
 
 const PokerList = (props) => {
-  const { ids, style } = props;
+  const { ids, style, onChange } = props;
   const sortedIds = [...ids];
   sortedIds.sort((a, b) => pokerMap[b === 0 ? 0 : b % 54 === 0 ? 54 : b % 54] - pokerMap[a === 0 ? 0 : a % 54 === 0 ? 54 : a % 54]);
-  const [selectedIds, setSelectedIds] = useState(Array(sortedIds.length).fill(false));
+  const [selectedIds, setSelectedIds] = useImmer(Array(sortedIds.length).fill(false));
   useEffect(() => {
+    onChange && onChange([]);
     setSelectedIds(Array(sortedIds.length).fill(false));
   }, [sortedIds.length]);
   return (
@@ -16,12 +18,14 @@ const PokerList = (props) => {
         <Poker
           key={index}
           id={id}
-          style={{ position: 'absolute', left: index * 48, bottom: 0, paddingBottom: selectedIds[id] ? 41 : 0 }}
-          onClick={() => setSelectedIds((selectedIds) => {
-            const newSelectedIds = [...selectedIds];
-            newSelectedIds[id] = !newSelectedIds[id];
-            return newSelectedIds;
-          })}
+          style={{ position: 'absolute', left: index * 48, bottom: 0, paddingBottom: selectedIds[index] ? 41 : 0 }}
+          onClick={() => {
+            setSelectedIds((selectedIds) => {
+              selectedIds[index] = !selectedIds[index];
+              const selected = sortedIds.filter((item, i) => selectedIds[i]);
+              onChange && onChange(selected);
+            });
+          }}
         />
       ))}
     </div>

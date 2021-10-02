@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
 import Message from '../../components/Message';
-import { addHandler, connect, sendData, disconnect } from '../../utils/websocket';
+import { addHandler, connect, disconnect } from '../../utils/websocket';
 import WaitingRoom from './WaitingRoom';
 import GamingRoom from './GamingRoom';
 

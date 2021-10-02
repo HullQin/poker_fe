@@ -38,6 +38,34 @@ const clearHandler = (handler) => {
   initHandler();
 };
 
+const showRefresh = (content) => {
+  const mask = document.createElement('div');
+  mask.style.position = 'fixed';
+  mask.style.top = '0';
+  mask.style.left = '0';
+  mask.style.right = '0';
+  mask.style.bottom = '0';
+  mask.style.backgroundColor = 'rgba(0, 0, 0, 0.45)';
+  document.body.appendChild(mask);
+  const div = document.createElement('div');
+  div.style.position = 'absolute';
+  div.style.top = '20%';
+  div.style.left = '0';
+  div.style.right = '0';
+  div.style.padding = '24px';
+  div.style.textAlign = 'center';
+  div.style.backgroundColor = '#eee';
+  const h1 = document.createElement('h1');
+  h1.innerText = content;
+  div.appendChild(h1);
+  const button = document.createElement('button');
+  button.innerText = '连接已断开，点击这里刷新页面';
+  button.style.fontSize = '24px';
+  button.onclick = (ev) => window.location.reload();
+  div.appendChild(button);
+  document.body.appendChild(div);
+};
+
 const connect = (roomId) => {
   disconnect();
   _ws = new WebSocket(`ws://127.0.0.1:8000`);
@@ -50,11 +78,11 @@ const connect = (roomId) => {
   _ws.onclose = (event => {
     if (event.code !== 1000) {
       if (event.code === 3200) {
-        alert('您已在新的浏览器窗口中进入该房间，本页面连接中断！');
+        showRefresh('您已在新的浏览器窗口中进入该房间，本页面连接中断！');
       } else if(event.code === 3001) {
-        alert('您被踢出房间，请刷新页面重新进入！');
+        showRefresh('您被踢出房间，请刷新页面重新进入！');
       } else {
-        alert('网络问题，连接已断开！请刷新页面！');
+        showRefresh('网络问题，连接已断开！请刷新页面！');
       }
     }
   });
