@@ -1,13 +1,14 @@
-import './style.css';
 import cn from 'classnames';
+import { mapPokerIdToCardId } from '../../utils/poker';
+import './style.css';
 
 const Poker = (props) => {
   const { id, className, ...otherProps } = props;
   if (typeof id !== 'number') return;
-  const imgId = id % 54;
+  const cardId = mapPokerIdToCardId(id);
   return (
     <div
-      className={cn('poker', `poker-${imgId === 0 && id !== 0 ? 54 : imgId}`, className)}
+      className={cn('poker', `poker-${cardId}`, className)}
       {...otherProps}
     />
   );

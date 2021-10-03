@@ -1,10 +1,12 @@
 .poker {
+  position: absolute;
   background-image: url('./card.png');
   background-clip: content-box;
   background-repeat: no-repeat;
   width: 116px;
   height: 159px;
-  transition: padding-bottom .2s ease-out;
+  transform-origin: 0 0 0;
+  transition: top,left .2s ease-out;
 }
 .poker-1 {
    background-position: -238px -646px;

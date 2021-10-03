@@ -25,8 +25,6 @@ const Room = () => {
     landlord: null,
   }));
 
-  console.log(room);
-
   const setRoomPlayer = (seat, user) => {
     setRoom((room) => {
       room.players[seat] = user;
@@ -143,9 +141,6 @@ const Room = () => {
   }
   if (room.state === 1) {
     return <GamingRoom room={room} game={game} seat={seat} />;
-  }
-  if (room.state === 999) {
-    return '游戏结束，李晓馨输了';
   }
   return null;
 };
