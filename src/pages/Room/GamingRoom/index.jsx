@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { sendData } from '../../../utils/websocket';
 import SeatList from '../../../components/SeatList';
 import PokerList from '../../../components/PokerList';
@@ -9,11 +9,12 @@ const GamingRoom = (props) => {
   const { room, game, seat, classNames, ...otherProps } = props;
   const isPlayer = !!seat;
   const isCreator = isPlayer && room.players[seat].is_creator;
-  const selectedCards = useRef([]);
+  const [selectedCards, setSelectedCards] = useState([]);
 
   return (
     <div {...otherProps}>
-      {game.state === 1 && <h1>抢地主中</h1>}
+      {!isPlayer && <h1>您正在观战</h1>}
+      {isPlayer && game.state === 1 && <h1>抢地主中</h1>}
       {game.state === 2 && (
         <StaticPokerList ids={game.revealed} height={58} />
       )}
@@ -51,18 +52,16 @@ const GamingRoom = (props) => {
         <div style={{ height: 30 + 88 }}>
           <div style={{ height: 30, margin: '0 24px', fontSize: 18 }}>
             {isPlayer && game.state === 1 && (
-              <button onClick={() => sendData('user.call.landlord')}>
+              <button className='room-operation-main' onClick={() => sendData('user.call.landlord')}>
                 抢地主
               </button>
             )}
             {isPlayer && game.state === 2 && (
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                 <button
-                  onClick={() => {
-                    if (selectedCards.current.length > 0) {
-                      sendData('user.drop.card', { cards: selectedCards.current });
-                    }
-                  }}
+                  className='room-operation-main'
+                  disabled={selectedCards.length === 0}
+                  onClick={() => sendData('user.drop.card', { cards: selectedCards })}
                 >
                   出牌
                 </button>
@@ -72,6 +71,13 @@ const GamingRoom = (props) => {
                 >
                   收回刚出的牌
                 </button>
+                <button
+                  className='room-operation-main'
+                  disabled={selectedCards.length === 0}
+                  onClick={() => sendData('user.drop.card', { cards: selectedCards })}
+                >
+                  出牌
+                </button>
               </div>
             )}
           </div>
@@ -79,7 +85,7 @@ const GamingRoom = (props) => {
             height={70}
             ids={game.my}
             onChange={(selected) => {
-              selectedCards.current = selected;
+              setSelectedCards(selected);
             }}
           />
         </div>

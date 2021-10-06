@@ -5,9 +5,13 @@ import { sendData } from '../../../utils/websocket';
 const WaitingRoom = (props) => {
   const { room, seat, ...otherProps } = props;
   const [disabled, setDisabled] = useState(false);
+  const isPlayer = !!seat;
+  const isCreator = isPlayer && room.players[seat].is_creator;
+
   return (
     <div {...otherProps}>
       <h1>房间号：{room.id}</h1>
+      {!isPlayer && <h1>您正在观战，请等待房主开局</h1>}
       <SeatList
         seat={seat}
         players={room.players}
@@ -15,7 +19,7 @@ const WaitingRoom = (props) => {
           if (room.players[seat] === null) sendData('user.seat.change', { seat });
         }}
       />
-      {room.players[seat]?.is_creator && (
+      {isCreator && (
         <div style={{ marginTop: 21, textAlign: 'center' }}>
           <button
             disabled={!!room.players[4]}
