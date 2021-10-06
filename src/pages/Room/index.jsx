@@ -4,8 +4,10 @@ import Message from '../../components/Message';
 import { addHandler, connect, disconnect } from '../../utils/websocket';
 import WaitingRoom from './WaitingRoom';
 import GamingRoom from './GamingRoom';
+import useSetLocation from '../../utils/use-set-location';
 
 const Room = () => {
+  const setLocation = useSetLocation();
   // room_id 不可变；只能先退出房间再进入新房间
   const [room, setRoom] = useImmer(() => ({
     id: window.location.pathname.substr(1),
@@ -24,6 +26,26 @@ const Room = () => {
     total: 0,
     landlord: null,
   }));
+
+  useEffect(() => {
+    try {
+      const rooms = JSON.parse(window.localStorage.getItem('rooms'));
+      if (Array.isArray(rooms) && rooms.every(item => typeof item === 'string')) {
+        const index = rooms.indexOf(room.id);
+        if (index !== -1) {
+          rooms.splice(index, 1);
+        }
+        rooms.splice(0, 0, room.id);
+        if (rooms.length > 10) {
+          rooms.length = 10;
+        }
+        window.localStorage.setItem('rooms', JSON.stringify(rooms));
+        return;
+      }
+    } catch {
+    }
+    window.localStorage.setItem('rooms', JSON.stringify([room.id]));
+  }, []);
 
   const setRoomPlayer = (seat, user) => {
     setRoom((room) => {
@@ -136,13 +158,16 @@ const Room = () => {
     };
   }, []);
 
-  if (room.state === 0) {
-    return <WaitingRoom room={room} seat={seat} />;
-  }
-  if (room.state === 1) {
-    return <GamingRoom room={room} game={game} seat={seat} />;
-  }
-  return null;
+  return (
+    <>
+      {room.state === 0 ? (
+        <WaitingRoom room={room} seat={seat} />
+      ) : room.state === 1 ? (
+        <GamingRoom room={room} game={game} seat={seat} />
+      ) : null}
+      <button style={{ position: 'absolute', top: 0, right: 0 }} onClick={() => setLocation('/')}>重选房间</button>
+    </>
+  );
 };
 
 export default Room;

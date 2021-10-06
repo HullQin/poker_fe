@@ -18,7 +18,7 @@ const GamingRoom = (props) => {
         <StaticPokerList ids={game.revealed} height={58} />
       )}
       {isCreator && (
-        <div style={{ position: 'absolute', top: 0, right: 0}}>
+        <div style={{ position: 'absolute', top: 58, right: 0}}>
           <button
             onClick={() => {
               if (window.confirm('当前对局记录将清空，确定要重新开局？')) {
@@ -27,23 +27,6 @@ const GamingRoom = (props) => {
             }}
           >
             重新发牌（重新开局）
-          </button>
-        </div>
-      )}
-      {isPlayer && game.state === 1 && (
-        <div>
-          <button onClick={() => sendData('user.call.landlord')}>
-            抢地主
-          </button>
-        </div>
-      )}
-      {isPlayer && game.state === 2 && (
-        <div>
-          <button
-            disabled={game.last[seat].length === 0}
-            onClick={() => sendData('user.withdraw.card')}
-          >
-            收回刚出的牌
           </button>
         </div>
       )}
@@ -66,18 +49,31 @@ const GamingRoom = (props) => {
       />
       {isPlayer && (
         <div style={{ height: 30 + 88 }}>
-          <div style={{ height: 30, marginLeft: 24 }}>
-            <button
-              style={{ fontSize: 18 }}
-              disabled={game.state !== 2}
-              onClick={() => {
-                if (selectedCards.current.length > 0) {
-                  sendData('user.drop.card', { cards: selectedCards.current });
-                }
-              }}
-            >
-              出牌{game.state !== 2 ? '（请先抢地主）' : ''}
-            </button>
+          <div style={{ height: 30, margin: '0 24px', fontSize: 18 }}>
+            {isPlayer && game.state === 1 && (
+              <button onClick={() => sendData('user.call.landlord')}>
+                抢地主
+              </button>
+            )}
+            {isPlayer && game.state === 2 && (
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <button
+                  onClick={() => {
+                    if (selectedCards.current.length > 0) {
+                      sendData('user.drop.card', { cards: selectedCards.current });
+                    }
+                  }}
+                >
+                  出牌
+                </button>
+                <button
+                  disabled={game.last[seat].length === 0}
+                  onClick={() => sendData('user.withdraw.card')}
+                >
+                  收回刚出的牌
+                </button>
+              </div>
+            )}
           </div>
           <PokerList
             height={70}
