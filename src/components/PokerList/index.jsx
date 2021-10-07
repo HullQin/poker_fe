@@ -1,18 +1,15 @@
 import { useEffect, useMemo } from 'react';
-import { useImmer } from 'use-immer';
 import Poker from '../Poker';
 import { sortPokersById } from '../../utils/poker';
 import './style.css';
 
 const PokerList = (props) => {
-  const { ids, height = 159, style, onChange } = props;
+  const { ids, height = 159, style, selected, setSelected } = props;
   const sortedIds = useMemo(() => {
     return sortPokersById([...ids]);
   }, [ids]);
-  const [selectedIds, setSelectedIds] = useImmer(Array(sortedIds.length).fill(false));
   useEffect(() => {
-    onChange && onChange([]);
-    setSelectedIds(Array(sortedIds.length).fill(false));
+    setSelected([]);
   }, [sortedIds.length]);
   const padding = height * 41 / 159;
   const gap = height * 48 / 159;
@@ -22,12 +19,15 @@ const PokerList = (props) => {
         <Poker
           key={id}
           id={id}
-          style={{ left: index * gap, top: selectedIds[index] ? 0 : padding, transform: `scale(${height / 159})` }}
+          style={{ left: index * gap, top: selected.includes(id) ? 0 : padding, transform: `scale(${height / 159})` }}
           onClick={() => {
-            setSelectedIds((selectedIds) => {
-              selectedIds[index] = !selectedIds[index];
-              const selected = sortedIds.filter((item, i) => selectedIds[i]);
-              onChange && onChange(selected);
+            setSelected((selected) => {
+              const index = selected.indexOf(id);
+              if (index === -1) {
+                selected.push(id);
+              } else {
+                selected.splice(index, 1);
+              }
             });
           }}
         />

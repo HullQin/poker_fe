@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { useImmer } from 'use-immer';
 import PokerList from '../../../components/PokerList';
 import { sendData } from '../../../utils/websocket';
 
 const Operation = (props) => {
   const { game, seat } = props;
-  const [selectedCards, setSelectedCards] = useState([]);
+  const [selectedCards, setSelectedCards] = useImmer([]);
   const [disabled, setDisabled] = useState(false);
   const handleClick = (handler) => () => {
     setDisabled(true);
@@ -53,7 +54,8 @@ const Operation = (props) => {
       <PokerList
         height={70}
         ids={game.my}
-        onChange={setSelectedCards}
+        selected={selectedCards}
+        setSelected={setSelectedCards}
       />
     </div>
   );
