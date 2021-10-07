@@ -6,7 +6,7 @@ const WaitingRoom = (props) => {
   const { room, seat, ...otherProps } = props;
   const [disabled, setDisabled] = useState(false);
   const isPlayer = !!seat;
-  const isCreator = isPlayer && room.players[seat].is_creator;
+  const isCreator = isPlayer && room.players[seat]?.is_creator;
 
   return (
     <div {...otherProps}>
