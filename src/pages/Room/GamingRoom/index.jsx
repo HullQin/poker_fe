@@ -37,8 +37,8 @@ const GamingRoom = (props) => {
         render={(seat) => (
           <>
             <div className='room-seat-info'>
-              <div className='room-seat-role'>{game.state === 2 && game.landlord === seat ? '👲 地主' : '👨‍🌾 农民'}</div>
-              <div><span className='room-seat-rest'>{game.held[seat]}</span> 张牌</div>
+              <div className='room-seat-role' style={game.top === seat ? { color: 'red' } : undefined}>{game.state === 2 && game.landlord === seat ? '👲 地主' : '👨‍🌾 农民'}</div>
+              <div><span className='room-seat-rest' style={game.held[seat] < 3 ? { color: 'red' } : undefined}>{game.held[seat]}</span> 张牌</div>
             </div>
             {game.state === 2 && (
               <StaticPokerList ids={game.last[seat]} overlap sort height={58} style={{ flex: '1 0 auto', marginLeft: 24 }} />

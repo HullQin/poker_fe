@@ -25,6 +25,7 @@ const Room = () => {
     revealed: [],
     total: 0,
     landlord: null,
+    top: null,
   }));
 
   useEffect(() => {
@@ -169,7 +170,9 @@ const Room = () => {
       ) : room.state === 1 ? (
         <GamingRoom room={room} game={game} seat={seat} />
       ) : null}
-      <button style={{ position: 'absolute', top: 0, right: 0 }} onClick={() => setLocation('/')}>重选房间</button>
+      {room.state >= 0 && (
+        <button style={{ position: 'absolute', top: 0, right: 0 }} onClick={() => setLocation('/')}>重选房间</button>
+      )}
     </>
   );
 };
