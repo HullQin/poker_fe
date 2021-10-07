@@ -1,15 +1,13 @@
-import { useState } from 'react';
 import { sendData } from '../../../utils/websocket';
 import SeatList from '../../../components/SeatList';
-import PokerList from '../../../components/PokerList';
 import StaticPokerList from '../../../components/StaticPokerList';
 import './style.css';
+import Operation from './Operation';
 
 const GamingRoom = (props) => {
   const { room, game, seat, classNames, ...otherProps } = props;
   const isPlayer = !!seat;
   const isCreator = isPlayer && room.players[seat].is_creator;
-  const [selectedCards, setSelectedCards] = useState([]);
 
   return (
     <div {...otherProps}>
@@ -48,48 +46,7 @@ const GamingRoom = (props) => {
           </>
         )}
       />
-      {isPlayer && (
-        <div style={{ height: 30 + 88 }}>
-          <div style={{ height: 30, margin: '0 24px', fontSize: 18 }}>
-            {isPlayer && game.state === 1 && (
-              <button className='room-operation-main' onClick={() => sendData('user.call.landlord')}>
-                抢地主
-              </button>
-            )}
-            {isPlayer && game.state === 2 && (
-              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                <button
-                  className='room-operation-main'
-                  disabled={selectedCards.length === 0}
-                  onClick={() => sendData('user.drop.card', { cards: selectedCards })}
-                >
-                  出牌
-                </button>
-                <button
-                  disabled={game.last[seat].length === 0}
-                  onClick={() => sendData('user.withdraw.card')}
-                >
-                  收回刚出的牌
-                </button>
-                <button
-                  className='room-operation-main'
-                  disabled={selectedCards.length === 0}
-                  onClick={() => sendData('user.drop.card', { cards: selectedCards })}
-                >
-                  出牌
-                </button>
-              </div>
-            )}
-          </div>
-          <PokerList
-            height={70}
-            ids={game.my}
-            onChange={(selected) => {
-              setSelectedCards(selected);
-            }}
-          />
-        </div>
-      )}
+      {isPlayer && <Operation game={game} seat={seat} />}
     </div>
   );
 };

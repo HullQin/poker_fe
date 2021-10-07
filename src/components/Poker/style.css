@@ -6,7 +6,7 @@
   width: 116px;
   height: 159px;
   transform-origin: 0 0 0;
-  transition: top,left .2s ease-out;
+  transition: left .2s ease-out, top .2s ease-out;
 }
 .poker-1 {
    background-position: -238px -646px;

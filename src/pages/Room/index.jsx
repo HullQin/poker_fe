@@ -119,11 +119,11 @@ const Room = () => {
         setRoomPlayer(data.seat, null);
       },
       'room.user.leave': (data) => {
-        Message(`玩家${data.seat}断线了`);
+        // Message(`玩家${data.seat}断线了`);
         setPlayerOnline(data.seat, false);
       },
       'room.user.back': (data) => {
-        Message(`玩家${data.seat}回来了`);
+        // Message(`玩家${data.seat}回来了`);
         setPlayerOnline(data.seat, true);
       },
       'room.state.start': (data) => {
@@ -140,7 +140,11 @@ const Room = () => {
         setGame(data.game);
       },
       'game.drop.card': (data) => {
-        Message(`玩家${data.seat}出牌了`);
+        if (data.game.last[data.seat].length === 0) {
+          Message(`玩家${data.seat}不出`);
+        } else {
+          Message(`玩家${data.seat}出牌了`);
+        }
         setGame(data.game);
       },
       'game.withdraw.card': (data) => {
