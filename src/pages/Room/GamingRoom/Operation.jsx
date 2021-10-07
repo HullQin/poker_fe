@@ -4,7 +4,7 @@ import PokerList from '../../../components/PokerList';
 import { sendData } from '../../../utils/websocket';
 
 const Operation = (props) => {
-  const { game, seat } = props;
+  const { game, room, seat } = props;
   const [selectedCards, setSelectedCards] = useImmer([]);
   const [disabled, setDisabled] = useState(false);
   const handleClick = (handler) => () => {
@@ -24,26 +24,26 @@ const Operation = (props) => {
           <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <button
               className='room-operation-main'
-              disabled={disabled || selectedCards.length === 0}
+              disabled={disabled || selectedCards.length === 0 || game.turn !== seat}
               onClick={handleClick(() => sendData('user.drop.card', { cards: selectedCards }))}
             >
               出牌
             </button>
             <button
-              disabled={disabled}
+              disabled={disabled || game.turn !== seat}
               onClick={handleClick(() => sendData('user.drop.card', { cards: [] }))}
             >
               不出
             </button>
             <button
-              disabled={disabled || game.last[seat].length === 0}
+              disabled={disabled || game.last[seat].length === 0 || game.turn - 1 !== seat % (room.players.length - 1) }
               onClick={handleClick(() => sendData('user.withdraw.card'))}
             >
               收回刚出的牌
             </button>
             <button
               className='room-operation-main'
-              disabled={disabled || selectedCards.length === 0}
+              disabled={disabled || selectedCards.length === 0 || game.turn !== seat}
               onClick={handleClick(() => sendData('user.drop.card', { cards: selectedCards }))}
             >
               出牌

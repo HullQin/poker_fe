@@ -26,6 +26,7 @@ const Room = () => {
     total: 0,
     landlord: null,
     top: null,
+    turn: null,
   }));
 
   useEffect(() => {

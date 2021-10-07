@@ -34,19 +34,19 @@ const GamingRoom = (props) => {
         vertical
         seat={seat}
         players={room.players}
-        render={(seat) => (
+        render={(_seat) => (
           <>
-            <div className='room-seat-info'>
-              <div className='room-seat-role' style={game.top === seat ? { color: 'red' } : undefined}>{game.state === 2 && game.landlord === seat ? '👲 地主' : '👨‍🌾 农民'}</div>
-              <div><span className='room-seat-rest' style={game.held[seat] < 3 ? { color: 'red' } : undefined}>{game.held[seat]}</span> 张牌</div>
+            <div className='room-seat-info' style={{ animation: _seat === seat && game.turn === seat ? 'fade 800ms infinite': undefined }}>
+              <div className='room-seat-role' style={{ color: game.turn === _seat ? 'red' : undefined }}>{game.state === 2 && game.landlord === _seat ? '👲 地主' : '👨‍🌾 农民'}</div>
+              <div><span className='room-seat-rest' style={game.held[_seat] < 3 ? { color: 'red' } : undefined}>{game.held[_seat]}</span> 张牌</div>
             </div>
             {game.state === 2 && (
-              <StaticPokerList ids={game.last[seat]} overlap sort height={58} style={{ flex: '1 0 auto', marginLeft: 24 }} />
+              <StaticPokerList ids={game.last[_seat]} overlap sort height={58} style={{ flex: '1 0 auto', marginLeft: 24, backgroundColor: game.top === _seat ? '#eee': undefined }} />
             )}
           </>
         )}
       />
-      {isPlayer && <Operation game={game} seat={seat} />}
+      {isPlayer && <Operation game={game} room={room} seat={seat} />}
     </div>
   );
 };
