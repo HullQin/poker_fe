@@ -42,7 +42,9 @@ function scanFiles(filePath) {
             var isFile = stat.isFile();
             var isDir = stat.isDirectory();
             if (isFile) {
-              upload(fileFullPath);
+              if (fileFullPath.indexOf('build/index.html') < 0) {
+                upload(fileFullPath);
+              }
             }
             if (isDir) {
               scanFiles(fileFullPath);
