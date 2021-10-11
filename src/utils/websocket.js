@@ -68,8 +68,8 @@ const showRefresh = (content) => {
 
 const connect = (roomId) => {
   disconnect();
-  const debug = window.location.hostname === '127.0.0.1';
-  _ws = new WebSocket(`ws://${debug ? '127.0.0.1:8000' : window.location.host}`);
+  const debug = ['127.0.0.1', 'localhost'].includes(window.location.hostname);
+  _ws = new WebSocket(debug ? 'ws://127.0.0.1:8000' : `wss://${window.location.host}`);
   _ws.onopen = () => {
     sendData('user.init', {
       user_id: userId,
