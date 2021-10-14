@@ -3,6 +3,7 @@ var COS = require('cos-nodejs-sdk-v5');
 var fs = require('fs');
 var path = require('path');
 
+// 密钥已禁用
 var cos = new COS({
   SecretId: 'AKID3uVpthEVWGkxuaz5tSmqdAQP8cqnTs1t',
   SecretKey: 'cx2sRkob9QQ9bmgKhnb9RSCetsa092f1'

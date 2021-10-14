@@ -69,7 +69,8 @@ const showRefresh = (content) => {
 const connect = (roomId) => {
   disconnect();
   const debug = ['127.0.0.1', 'localhost'].includes(window.location.hostname);
-  _ws = new WebSocket(debug ? 'ws://127.0.0.1:8000' : `wss://${window.location.host}`);
+  // 根据uri中对roomId做负载均衡
+  _ws = new WebSocket(debug ? `ws://127.0.0.1:8000/${roomId}` : `wss://${window.location.host}/${roomId}`);
   _ws.onopen = () => {
     sendData('user.init', {
       user_id: userId,
