@@ -2,6 +2,7 @@
 .idea
 scripts/uploadCDN.js
 deploy.sh
+.env
 
 # dependencies
 /node_modules
